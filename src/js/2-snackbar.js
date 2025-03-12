@@ -1,117 +1,39 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
-const form = document.querySelector('.form');
-form.setAttribute('novalidate', '');
+const form = document.querySelector(".form");
 
-const successMessage = {
-  title: 'OK',
-  position: 'topRight',
-  messageColor: '#fff',
-  backgroundColor: '#59a10d',
-  iconColor: '#fff',
-  close: true,
-  titleColor: '#fff',
-  closeColor: '#fff',
-  iconUrl: iconOk,
-};
-
-const errorMessage = {
-  title: 'Error',
-  position: 'topRight',
-  messageColor: '#fff',
-  backgroundColor: '#ef4040',
-  iconColor: '#fff',
-  close: true,
-  titleColor: '#fff',
-  closeColor: '#fff',
-  iconUrl: iconDagger,
-};
-
-const cautionMessage = {
-  title: 'Caution',
-  position: 'topRight',
-  message: 'You forgot important data',
-  messageColor: '#fff',
-  backgroundColor: '#ffa000',
-  iconColor: '#fff',
-  close: true,
-  titleColor: '#fff',
-  closeColor: '#fff',
-  iconUrl: iconCaution,
-};
-
-const informingMessage = {
-  title: 'Hello',
-  message: 'Welcome!',
-  position: 'topRight',
-  messageColor: '#fff',
-  backgroundColor: '#09f',
-  iconColor: '#fff',
-  close: true,
-  titleColor: '#fff',
-  closeColor: '#fff',
-  iconUrl: iconBell,
-};
-
-// Відображення вітального повідомлення
-iziToast.show(informingMessage);
-
-form.addEventListener('submit', function promiseFunction(event) {
+form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const delayInput = document.querySelector('input[name="delay"]');
-  const getState = document.querySelector('input[name="state"]:checked');
-
-  if (delayInput.value === '') {
-    // console.log('Enter some number');
-    iziToast.show(cautionMessage);
-    event.currentTarget.reset();
-    return;
-  }
-
-  if (Number(delayInput.value) <= 0) {
-    // console.log('You must enter a valid value');
-    iziToast.show(cautionMessage);
-    event.currentTarget.reset();
-    return;
-  }
-
-  if (!getState) {
-    // console.log('You forgot to choose a promise type');
-    iziToast.show(cautionMessage);
-    return;
-  }
-
-  const promiseDelay = Number(delayInput.value);
+  const delay = Number(form.elements.delay.value);
+  const state = form.elements.state.value;
 
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (getState.value === 'fulfilled') {
-        resolve(promiseDelay);
+      if (state === "fulfilled") {
+        resolve(`✅ Проміс виконано через ${delay} мс`);
       } else {
-        reject(promiseDelay);
+        reject(`❌ Проміс відхилено через ${delay} мс`);
       }
-    }, promiseDelay);
+    }, delay);
   });
 
   promise
-    .then(delay => {
-      const message = `✅ Fulfilled promise in ${delay}ms`;
-      console.log(message);
+    .then((message) => {
       iziToast.success({
-        ...successMessage,
+        title: "Успіх",
         message: message,
+        position: "topRight",
+        timeout: 5000,
       });
     })
-    .catch(delay => {
-      const message = `❌ Rejected promise in ${delay}ms`;
-      console.log(message);
+    .catch((message) => {
       iziToast.error({
-        ...errorMessage,
+        title: "Помилка",
         message: message,
+        position: "topRight",
+        timeout: 5000,
       });
     });
-
-  event.currentTarget.reset();
 });
