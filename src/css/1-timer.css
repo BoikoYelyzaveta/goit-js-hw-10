@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+body {
+    font-family: "Montserrat", sans-serif;
+}
+
+.timer {
+display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  margin-top: 32px;
+    gap: 24px;
+
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
+
+}
+.field:hover {
+    border-color: black;
+}
+
+.field:focus {
+    border-color: blue;
+}
+
+.field:disabled {
+    background: #f0f0f0;
+    color: gray;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+.text-timer {
+padding-left: 16px;
+padding-top: 8px;
+padding-bottom: 8px;
+font-family: 'Montserrat', sans-serif;
+font-weight: 400;
+font-size: 16px;
+line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: #2e2f42;
+}
+
+
+.label {
+    font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #2e2f42;
+        text-transform: capitalize;
+   
+}
+.value {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    color: #2e2f42;
+}
+.button {
+    font-family: 'Montserrat', sans-serif;
+    padding: 8px 16px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+input.flatpickr-input.active {
+        border: 1px solid #4e75ff;
+        border-radius: 4px;
+
+}
+.flatpickr-day:focus {
+    background-color: #4e75ff;
+  
+    color: white;
+    }
+
+.back-link.active::after {
+background-color: #4E75FF;
+}
+.button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.back-link {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 12px 24px;
+    background-color: #070c07;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-link:hover {
+    background-color: #070c07;
+    transform: scale(1.05);
+}
+
+.back-link:active {
+    background-color: #070c07;
+    transform: scale(1);
+}
