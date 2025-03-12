@@ -1,39 +1,31 @@
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
-const form = document.querySelector(".form");
-
-form.addEventListener("submit", (event) => {
+document.querySelector('.form').addEventListener('submit', event => {
   event.preventDefault();
 
-  const delay = Number(form.elements.delay.value);
-  const state = form.elements.state.value;
+  const delay = parseInt(event.target.elements.delay.value);
+  const state = event.target.elements.state.value;
 
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (state === "fulfilled") {
-        resolve(`✅ Проміс виконано через ${delay} мс`);
-      } else {
-        reject(`❌ Проміс відхилено через ${delay} мс`);
-      }
+      state === 'fulfilled' ? resolve(delay) : reject(delay);
     }, delay);
   });
 
   promise
-    .then((message) => {
+    .then(delay => {
       iziToast.success({
-        title: "Успіх",
-        message: message,
-        position: "topRight",
-        timeout: 5000,
+        title: '✅ Success',
+        message: `Fulfilled promise in ${delay}ms`,
+        position: 'topRight',
       });
     })
-    .catch((message) => {
+    .catch(delay => {
       iziToast.error({
-        title: "Помилка",
-        message: message,
-        position: "topRight",
-        timeout: 5000,
+        title: '❌ Error',
+        message: `Rejected promise in ${delay}ms`,
+        position: 'topRight',
       });
     });
 });
