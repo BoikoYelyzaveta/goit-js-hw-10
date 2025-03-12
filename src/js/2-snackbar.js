@@ -1,9 +1,5 @@
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
-import iconDagger from '../img/icon/Group.png';
-import iconOk from '../img/icon/form icon/circle Ok.png';
-import iconCaution from '../img/icon/form icon/triangle Caution.png';
-import iconBell from '../img/icon/form icon/bell welcome.png';
+import iziToast from "izitoast";
+import "izitoast/dist/css/iziToast.min.css";
 
 const form = document.querySelector('.form');
 form.setAttribute('novalidate', '');
