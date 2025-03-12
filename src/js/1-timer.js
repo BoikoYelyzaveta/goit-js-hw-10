@@ -15,7 +15,7 @@ const refs = {
 let userSelectedDate = null;
 let timerId = null;
 
-refs.startBtn.disabled = true; // Кнопка неактивна при старті
+refs.startBtn.disabled = true; 
 
 const options = {
   enableTime: true,
@@ -24,7 +24,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     const selectedDate = selectedDates[0];
-
+    
     if (selectedDate <= new Date()) {
       iziToast.error({
         title: "Error",
@@ -39,27 +39,8 @@ const options = {
   },
 };
 
+
 flatpickr(refs.input, options);
-
-refs.startBtn.addEventListener("click", () => {
-  refs.startBtn.disabled = true;
-  refs.input.disabled = true;
-
-  timerId = setInterval(() => {
-    const now = new Date();
-    const timeRemaining = userSelectedDate - now;
-
-    if (timeRemaining <= 0) {
-      clearInterval(timerId);
-      updateTimerUI(0, 0, 0, 0);
-      refs.input.disabled = false;
-      return;
-    }
-
-    const { days, hours, minutes, seconds } = convertMs(timeRemaining);
-    updateTimerUI(days, hours, minutes, seconds);
-  }, 1000);
-});
 
 function convertMs(ms) {
   const second = 1000;
@@ -75,13 +56,37 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
+
 function addLeadingZero(value) {
   return String(value).padStart(2, "0");
 }
 
-function updateTimerUI(days, hours, minutes, seconds) {
+
+function updateTimerUI({ days, hours, minutes, seconds }) {
   refs.days.textContent = addLeadingZero(days);
   refs.hours.textContent = addLeadingZero(hours);
   refs.minutes.textContent = addLeadingZero(minutes);
   refs.seconds.textContent = addLeadingZero(seconds);
 }
+
+
+function startTimer() {
+  refs.startBtn.disabled = true;
+  refs.input.disabled = true;
+
+  timerId = setInterval(() => {
+    const currentTime = new Date();
+    const deltaTime = userSelectedDate - currentTime;
+
+    if (deltaTime <= 0) {
+      clearInterval(timerId);
+      updateTimerUI({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      refs.input.disabled = false; 
+      return;
+    }
+
+    updateTimerUI(convertMs(deltaTime));
+  }, 1000);
+}
+
+refs.startBtn.addEventListener("click", startTimer);
